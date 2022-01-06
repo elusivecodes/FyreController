@@ -76,10 +76,10 @@ abstract class Controller
      * Invoke a public action.
      * @param string $action The controller method.
      * @param array $args The arguments.
-     * @return self The Controller.
+     * @return Controller The Controller.
      * @throws RuntimeException if the action is not accessible.
      */
-    public function invokeAction(string $action, array $args = []): self
+    public function invokeAction(string $action, array $args = []): static
     {
         if (!$this->isAccessible($action)) {
             throw new RuntimeException('Invalid method invocation: '.$action);
@@ -99,7 +99,7 @@ abstract class Controller
      * @param string $template The template.
      * @return Controller The Controller.
      */
-    public function render(string $template): self
+    public function render(string $template): static
     {
         $output = $this->view->render($template);
 
@@ -114,7 +114,7 @@ abstract class Controller
      * @param mixed $value The value.
      * @return Controller The Controller.
      */
-    public function set(string $key, $value): self
+    public function set(string $key, $value): static
     {
         return $this->setData([$key => $value]);
     }
@@ -124,7 +124,7 @@ abstract class Controller
      * @param array $data The data.
      * @return Controller The Controller.
      */
-    public function setData(array $data): self
+    public function setData(array $data): static
     {
         $this->view->setData($data);
 
