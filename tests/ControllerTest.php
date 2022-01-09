@@ -43,12 +43,12 @@ final class ControllerTest extends TestCase
 
     public function testSet(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->controller,
             $this->controller->set('test', 'value')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'test' => 'value'
             ],
@@ -58,7 +58,7 @@ final class ControllerTest extends TestCase
 
     public function testSetData(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->controller,
             $this->controller->setData([
                 'test' => 'value'
@@ -66,7 +66,7 @@ final class ControllerTest extends TestCase
             ])
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'test' => 'value'
             ],
@@ -76,12 +76,12 @@ final class ControllerTest extends TestCase
 
     public function testRender(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->controller,
             $this->controller->render('test')
         );
 
-        $this->assertEquals(
+        $this->assertSame(
             'Test',
             $this->controller->getResponse()->getBody()
         );
@@ -92,7 +92,7 @@ final class ControllerTest extends TestCase
         $this->controller->render('test');
         $this->controller->render('test');
 
-        $this->assertEquals(
+        $this->assertSame(
             'TestTest',
             $this->controller->getResponse()->getBody()
         );
@@ -100,7 +100,7 @@ final class ControllerTest extends TestCase
 
     public function testInvoke(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->controller,
             $this->controller->invokeAction('test')
         );
@@ -108,7 +108,7 @@ final class ControllerTest extends TestCase
 
     public function testInvoiceArgs(): void
     {
-        $this->assertEquals(
+        $this->assertSame(
             $this->controller,
             $this->controller->invokeAction('arg', ['test'])
         );
@@ -120,7 +120,7 @@ final class ControllerTest extends TestCase
 
         $this->controller->invokeAction('redirect');
 
-        $this->assertNotEquals(
+        $this->assertNotSame(
             $response,
             $this->controller->getResponse()
         );
