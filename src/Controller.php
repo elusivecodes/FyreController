@@ -114,7 +114,7 @@ abstract class Controller
      * @param mixed $value The value.
      * @return Controller The Controller.
      */
-    public function set(string $key, $value): static
+    public function set(string $key, mixed $value): static
     {
         return $this->setData([$key => $value]);
     }
