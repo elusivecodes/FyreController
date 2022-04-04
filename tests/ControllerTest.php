@@ -5,11 +5,11 @@ namespace Tests;
 
 use
     Fyre\Controller\Controller,
-    Fyre\Error\Exceptions\Exception,
     Fyre\Server\ClientResponse,
     Fyre\Server\ServerRequest,
     Fyre\View\View,
     PHPUnit\Framework\TestCase,
+    RuntimeException,
     Tests\Mock\MockController;
 
 final class ControllerTest extends TestCase
@@ -128,21 +128,21 @@ final class ControllerTest extends TestCase
 
     public function testInvokeBase(): void
     {
-        $this->expectException(Exception::class);
+        $this->expectException(RuntimeException::class);
 
         $this->controller->invokeAction('getData');
     }
 
     public function testInvokeProtected(): void
     {
-        $this->expectException(Exception::class);
+        $this->expectException(RuntimeException::class);
 
         $this->controller->invokeAction('protected');
     }
 
     public function testInvokeInvalid(): void
     {
-        $this->expectException(Exception::class);
+        $this->expectException(RuntimeException::class);
 
         $this->controller->invokeAction('invalid');
     }
