@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Fyre\Controller;
 
 use
+    Fyre\Error\Exceptions\Exception,
     Fyre\Server\ClientResponse,
     Fyre\Server\ServerRequest,
     Fyre\View\View,
     ReflectionClass,
     ReflectionException,
-    ReflectionMethod,
-    RuntimeException;
+    ReflectionMethod;
 
 /**
  * Controller
@@ -77,12 +77,12 @@ abstract class Controller
      * @param string $action The controller method.
      * @param array $args The arguments.
      * @return Controller The Controller.
-     * @throws RuntimeException if the action is not accessible.
+     * @throws Exception if the action is not accessible.
      */
     public function invokeAction(string $action, array $args = []): static
     {
         if (!$this->isAccessible($action)) {
-            throw new RuntimeException('Invalid method invocation: '.$action);
+            throw new Exception('Invalid method invocation: '.$action);
         }
 
         $response = $this->$action(...$args);
