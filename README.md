@@ -7,6 +7,8 @@
 - [Installation](#installation)
 - [Controller Creation](#controller-creation)
 - [Methods](#methods)
+- [Component Registry](#component-registry)
+- [Components](#components)
 
 
 
@@ -84,6 +86,17 @@ $controller->invokeAction($action, $args);
 
 If the invoked method returns a [*ClientResponse*](https://github.com/elusivecodes/FyreServer#client-responses) it will be set on the controller.
 
+**Load Component**
+
+Load a [*Component*](#components).
+
+- `$name` is a string representing the component name.
+- `$options` is an array containing component options.
+
+```php
+$component = $controller->loadComponent($name, $options);
+```
+
 **Render**
 
 Render a [*View*](https://github.com/elusivecodes/FyreView) template and append the output to the response body.
@@ -113,4 +126,77 @@ Set the [*View*](https://github.com/elusivecodes/FyreView) data.
 
 ```php
 $controller->setData($data);
+```
+
+
+## Component Registry
+
+```php
+use Fyre\Controller\ComponentRegistry;
+```
+
+**Add Namespace**
+
+Add a namespace for automatically loading components.
+
+- `$namespace` is a string representing the namespace.
+
+```php
+ComponentRegistry::addNamespace($namespace);
+```
+
+**Clear**
+
+Clear all namespaces and components.
+
+```php
+ComponentRegistry::clear();
+```
+
+**Find**
+
+Find a component class.
+
+- `$name` is a string representing the component name.
+
+```php
+$className = ComponentRegistry::find($name);
+```
+
+**Load**
+
+Load a component.
+
+- `$name` is a string representing the component name.
+- `$controller` is a *Controller*.
+
+```php
+$component = ComponentRegistry::load($name, $controller);
+```
+
+
+## Components
+
+Components must be loaded using the `loadComponent` method of the *Controller*, and then can be accessed using the class name as a property of `$this`.
+
+```php
+$component = $this->MyComponent;
+```
+
+Custom components can be created by extending `\Fyre\Controller\Component`, ensuring the `__construct` method accepts *Controller* as the argument.
+
+**Get Config**
+
+Get the configuration options.
+
+```php
+$config = $component->getConfig();
+```
+
+**Get Controller**
+
+Get the *Controller*.
+
+```php
+$controller = $component->getController();
 ```

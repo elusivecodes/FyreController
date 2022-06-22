@@ -4,13 +4,13 @@ declare(strict_types=1);
 namespace Fyre\Controller;
 
 use
+    Fyre\Controller\Exceptions\ControllerException,
     Fyre\Server\ClientResponse,
     Fyre\Server\ServerRequest,
     Fyre\View\View,
     ReflectionClass,
     ReflectionException,
-    ReflectionMethod,
-    RuntimeException;
+    ReflectionMethod;
 
 /**
  * Controller
@@ -77,12 +77,12 @@ abstract class Controller
      * @param string $action The controller method.
      * @param array $args The arguments.
      * @return Controller The Controller.
-     * @throws RuntimeException if the action is not accessible.
+     * @throws ControllerException if the action is not accessible.
      */
     public function invokeAction(string $action, array $args = []): static
     {
         if (!$this->isAccessible($action)) {
-            throw new RuntimeException('Invalid method invocation: '.$action);
+            throw ControllerException::forInvalidMethodInvocation($action);
         }
 
         $response = $this->$action(...$args);
@@ -90,6 +90,19 @@ abstract class Controller
         if ($response && $response instanceof ClientResponse) {
             $this->response = $response;
         }
+
+        return $this;
+    }
+
+    /**
+     * Load a Component.
+     * @param string $name The component name.
+     * @param array $options The component options.
+     * @return View The View.
+     */
+    public function loadComponent(string $name, array $options = []): static
+    {
+        $this->$name = ComponentRegistry::load($name, $this, $options);
 
         return $this;
     }

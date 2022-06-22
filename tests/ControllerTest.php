@@ -4,12 +4,14 @@ declare(strict_types=1);
 namespace Tests;
 
 use
+    Fyre\Controller\Component,
+    Fyre\Controller\ComponentRegistry,
     Fyre\Controller\Controller,
+    Fyre\Controller\Exceptions\ControllerException,
     Fyre\Server\ClientResponse,
     Fyre\Server\ServerRequest,
     Fyre\View\View,
     PHPUnit\Framework\TestCase,
-    RuntimeException,
     Tests\Mock\MockController;
 
 final class ControllerTest extends TestCase
@@ -128,21 +130,21 @@ final class ControllerTest extends TestCase
 
     public function testInvokeBase(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ControllerException::class);
 
         $this->controller->invokeAction('getData');
     }
 
     public function testInvokeProtected(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ControllerException::class);
 
         $this->controller->invokeAction('protected');
     }
 
     public function testInvokeInvalid(): void
     {
-        $this->expectException(RuntimeException::class);
+        $this->expectException(ControllerException::class);
 
         $this->controller->invokeAction('invalid');
     }
@@ -157,6 +159,8 @@ final class ControllerTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
+        ComponentRegistry::clear();
+        ComponentRegistry::addNamespace('Tests\Mock\Components');
         View::addPath('tests/templates');
     }
 
