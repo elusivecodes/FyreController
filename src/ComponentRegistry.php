@@ -78,7 +78,7 @@ abstract class ComponentRegistry
     protected static function locate(string $name): string|null
     {
         foreach (static::$namespaces AS $namespace) {
-            $className = $namespace.$name;
+            $className = $namespace.$name.'Component';
 
             if (class_exists($className) && is_subclass_of($className, Component::class)) {
                 return $className;

@@ -33,7 +33,8 @@ abstract class Controller
     {
         $this->request = $request;
         $this->response = $response;
-        $this->view = new View();
+
+        $this->view = $this->getView();
     }
 
     /**
@@ -69,7 +70,7 @@ abstract class Controller
      */
     public function getView(): View
     {
-        return $this->view;
+        return $this->view ??= new View();
     }
 
     /**

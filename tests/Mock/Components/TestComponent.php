@@ -6,7 +6,7 @@ namespace Tests\Mock\Components;
 use
     Fyre\Controller\Component;
 
-class Test extends Component
+class TestComponent extends Component
 {
 
     public function value(): int

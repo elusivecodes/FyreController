@@ -183,7 +183,7 @@ Components must be loaded using the `loadComponent` method of the *Controller*, 
 $component = $this->MyComponent;
 ```
 
-Custom components can be created by extending `\Fyre\Controller\Component`, ensuring the `__construct` method accepts *Controller* as the argument.
+Custom components can be created by extending `\Fyre\Controller\Component`, suffixing the class name with "*Component*", and ensuring the `__construct` method accepts *Controller* as the argument.
 
 **Get Config**
 

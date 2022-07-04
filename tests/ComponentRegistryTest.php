@@ -18,7 +18,7 @@ final class ComponentRegistryTest extends TestCase
     public function testFind(): void
     {
         $this->assertSame(
-            '\Tests\Mock\Components\Test',
+            '\Tests\Mock\Components\TestComponent',
             ComponentRegistry::find('Test')
         );
     }
