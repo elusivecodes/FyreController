@@ -20,6 +20,8 @@
         }
     },
     "require": {
+        "fyre/orm": "^3.1",
+        "fyre/path": "^1.0",
         "fyre/server": "^1.0",
         "fyre/view": "^3.0"
     },

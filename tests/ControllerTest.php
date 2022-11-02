@@ -8,11 +8,13 @@ use
     Fyre\Controller\ComponentRegistry,
     Fyre\Controller\Controller,
     Fyre\Controller\Exceptions\ControllerException,
+    Fyre\ORM\Model,
     Fyre\Server\ClientResponse,
     Fyre\Server\ServerRequest,
     Fyre\View\View,
     PHPUnit\Framework\TestCase,
-    Tests\Mock\MockController;
+    Tests\Mock\MockController,
+    Tests\Mock\TestTitle2Controller;
 
 final class ControllerTest extends TestCase
 {
@@ -43,6 +45,58 @@ final class ControllerTest extends TestCase
         );
     }
 
+    public function testTitle(): void
+    {
+        $request = new ServerRequest();
+        $response = new ClientResponse();
+        $controller = new TestTitle2Controller($request, $response);
+
+        $controller->invokeAction('test');
+
+        $this->assertSame(
+            'Test Title 2',
+            $controller->getResponse()->getBody()
+        );
+    }
+
+    public function testFetchModel(): void
+    {
+        $model = $this->controller->fetchModel();
+
+        $this->assertInstanceOf(
+            Model::class,
+            $model
+        );
+
+        $this->assertSame(
+            'Mock',
+            $model->getAlias()
+        );
+    }
+
+    public function testFetchModelWithAlias(): void
+    {
+        $model = $this->controller->fetchModel('Test');
+
+        $this->assertInstanceOf(
+            Model::class,
+            $model
+        );
+
+        $this->assertSame(
+            'Test',
+            $model->getAlias()
+        );
+    }
+
+    public function testGetName(): void
+    {
+        $this->assertSame(
+            'Mock',
+            $this->controller->getName()
+        );
+    }
+
     public function testSet(): void
     {
         $this->assertSame(
@@ -52,6 +106,7 @@ final class ControllerTest extends TestCase
 
         $this->assertSame(
             [
+                'title' => 'Mock',
                 'test' => 'value'
             ],
             $this->controller->getData()
@@ -70,9 +125,31 @@ final class ControllerTest extends TestCase
 
         $this->assertSame(
             [
+                'title' => 'Mock',
                 'test' => 'value'
             ],
             $this->controller->getData()
+        );
+    }
+
+    public function testSetTemplateAutoRender(): void
+    {
+        $this->assertSame(
+            $this->controller,
+            $this->controller->setTemplate('Mock/other')
+        );
+
+        $this->assertSame(
+            'Mock/other',
+            $this->controller->getTemplate()
+        );
+
+        $this->controller->enableAutoRender();
+        $this->controller->invokeAction('test');
+
+        $this->assertSame(
+            'Other',
+            $this->controller->getResponse()->getBody()
         );
     }
 
@@ -80,7 +157,7 @@ final class ControllerTest extends TestCase
     {
         $this->assertSame(
             $this->controller,
-            $this->controller->render('test')
+            $this->controller->render('Mock/test')
         );
 
         $this->assertSame(
@@ -91,8 +168,8 @@ final class ControllerTest extends TestCase
 
     public function testRenderAppends(): void
     {
-        $this->controller->render('test');
-        $this->controller->render('test');
+        $this->controller->render('Mock/test');
+        $this->controller->render('Mock/test');
 
         $this->assertSame(
             'TestTest',
@@ -102,9 +179,16 @@ final class ControllerTest extends TestCase
 
     public function testInvoke(): void
     {
+        $this->controller->enableAutoRender();
+
         $this->assertSame(
             $this->controller,
             $this->controller->invokeAction('test')
+        );
+
+        $this->assertSame(
+            'Test',
+            $this->controller->getResponse()->getBody()
         );
     }
 
@@ -155,6 +239,7 @@ final class ControllerTest extends TestCase
         $response = new ClientResponse();
 
         $this->controller = new MockController($request, $response);
+        $this->controller->enableAutoRender(false);
     }
 
     public static function setUpBeforeClass(): void

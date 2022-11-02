@@ -41,12 +41,40 @@ $controller = new MyController($request, $response);
 
 ## Methods
 
+**Enable Auto Render**
+
+Enable or disable auto rendering.
+
+- `$autoRender` is a boolean indicating whether to enable auto rendering, and will default to *true*.
+
+```php
+$controller->enableAutoRender($autoRender);
+```
+
+**Fetch Model**
+
+Fetch a [*Model*](https://github.com/elusivecodes/FyreORM#models) from the [*ModelRegistry*](https://github.com/elusivecodes/FyreORM).
+
+- `$alias` is a string representing the model name, and will default to the controller name.
+
+```php
+$model = $controller->fetchModel($alias);
+```
+
 **Get Data**
 
 Get the view data.
 
 ```php
 $data = $controller->getData();
+```
+
+**Get Name**
+
+Get the controller name.
+
+```php
+$name = $controller->getName();
 ```
 
 **Get Request**
@@ -63,6 +91,14 @@ Get the [*ClientResponse*](https://github.com/elusivecodes/FyreServer#client-res
 
 ```php
 $response = $controller->getResponse();
+```
+
+**Get Template**
+
+Get the template.
+
+```php
+$template = $controller->getTemplate();
 ```
 
 **Get View**
@@ -85,6 +121,8 @@ $controller->invokeAction($action, $args);
 ```
 
 If the invoked method returns a [*ClientResponse*](https://github.com/elusivecodes/FyreServer#client-responses) it will be set on the controller.
+
+If auto rendering is enabled, and no response is set, then the template will be rendered as the response.
 
 **Load Component**
 
@@ -126,6 +164,16 @@ Set the [*View*](https://github.com/elusivecodes/FyreView) data.
 
 ```php
 $controller->setData($data);
+```
+
+**Set Template**
+
+Set the template file for auto rendering.
+
+- `$file` is a string representing the template file.
+
+```php
+$controller->setTemplate($file);
 ```
 
 
