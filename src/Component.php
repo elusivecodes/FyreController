@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\Controller;
 
-use function
-    array_replace_recursive;
+use function array_replace;
 
 /**
  * Component
@@ -27,7 +26,7 @@ abstract class Component
     {
         $this->controller = $controller;
 
-        $this->config = array_replace_recursive(static::$defaults, $options);
+        $this->config = array_replace(static::$defaults, $options);
     }
 
     /**

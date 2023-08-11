@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Fyre\Controller\Exceptions;
 
-use
-    RuntimeException;
+use RuntimeException;
 
 /**
  * ControllerException

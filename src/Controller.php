@@ -3,22 +3,20 @@ declare(strict_types=1);
 
 namespace Fyre\Controller;
 
-use
-    Fyre\Controller\Exceptions\ControllerException,
-    Fyre\ORM\Model,
-    Fyre\ORM\ModelRegistry,
-    Fyre\Server\ClientResponse,
-    Fyre\Server\ServerRequest,
-    Fyre\Utility\Path,
-    Fyre\View\View,
-    ReflectionClass,
-    ReflectionException,
-    ReflectionMethod;
+use Fyre\Controller\Exceptions\ControllerException;
+use Fyre\ORM\Model;
+use Fyre\ORM\ModelRegistry;
+use Fyre\Server\ClientResponse;
+use Fyre\Server\ServerRequest;
+use Fyre\Utility\Path;
+use Fyre\View\View;
+use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 
-use function
-    preg_replace,
-    str_replace,
-    substr;
+use function preg_replace;
+use function str_replace;
+use function substr;
 
 /**
  * Controller
@@ -139,7 +137,7 @@ abstract class Controller
      */
     public function getView(): View
     {
-        return $this->view ??= new View($this);
+        return $this->view ??= new View($this->request);
     }
 
     /**
@@ -189,7 +187,7 @@ abstract class Controller
     {
         $output = $this->view->render($template);
 
-        $this->response->appendBody($output);
+        $this->response = $this->response->appendBody($output);
 
         return $this;
     }

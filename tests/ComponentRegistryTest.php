@@ -3,17 +3,58 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\Controller\Component,
-    Fyre\Controller\ComponentRegistry,
-    Fyre\Controller\Exceptions\ControllerException,
-    Fyre\Server\ClientResponse,
-    Fyre\Server\ServerRequest,
-    PHPUnit\Framework\TestCase,
-    Tests\Mock\MockController;
+use Fyre\Controller\Component;
+use Fyre\Controller\ComponentRegistry;
+use Fyre\Controller\Exceptions\ControllerException;
+use Fyre\Server\ClientResponse;
+use Fyre\Server\ServerRequest;
+use PHPUnit\Framework\TestCase;
+use Tests\Mock\MockController;
 
 final class ComponentRegistryTest extends TestCase
 {
+
+    public function testGetNamespaces(): void
+    {
+        $this->assertSame(
+            [
+                '\Tests\Mock\Components\\'
+            ],
+            ComponentRegistry::getNamespaces()
+        );
+    }
+
+    public function testHasNamespace(): void
+    {
+        $this->assertTrue(
+            ComponentRegistry::hasNamespace('Tests\Mock\Components')
+        );
+    }
+
+    public function testHasNamespaceInvalid(): void
+    {
+        $this->assertFalse(
+            ComponentRegistry::hasNamespace('Tests\Invalid\Components')
+        );
+    }
+
+    public function testRemoveNamespace(): void
+    {
+        $this->assertTrue(
+            ComponentRegistry::removeNamespace('Tests\Mock\Components')
+        );
+
+        $this->assertFalse(
+            ComponentRegistry::hasNamespace('Tests\Mock\Components')
+        );
+    }
+
+    public function testRemoveNamespaceInvalid(): void
+    {
+        $this->assertFalse(
+            ComponentRegistry::removeNamespace('Tests\Invalid\Components')
+        );
+    }
 
     public function testFind(): void
     {
@@ -87,7 +128,7 @@ final class ComponentRegistryTest extends TestCase
         );
     }
 
-    public static function setUpBeforeClass(): void
+    public function setUp(): void
     {
         ComponentRegistry::clear();
         ComponentRegistry::addNamespace('Tests\Mock\Components');

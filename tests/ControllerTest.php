@@ -3,18 +3,17 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\Controller\Component,
-    Fyre\Controller\ComponentRegistry,
-    Fyre\Controller\Controller,
-    Fyre\Controller\Exceptions\ControllerException,
-    Fyre\ORM\Model,
-    Fyre\Server\ClientResponse,
-    Fyre\Server\ServerRequest,
-    Fyre\View\View,
-    PHPUnit\Framework\TestCase,
-    Tests\Mock\MockController,
-    Tests\Mock\TestTitle2Controller;
+use Fyre\Controller\ComponentRegistry;
+use Fyre\Controller\Controller;
+use Fyre\Controller\Exceptions\ControllerException;
+use Fyre\ORM\Model;
+use Fyre\Server\ClientResponse;
+use Fyre\Server\ServerRequest;
+use Fyre\View\Template;
+use Fyre\View\View;
+use PHPUnit\Framework\TestCase;
+use Tests\Mock\MockController;
+use Tests\Mock\TestTitle2Controller;
 
 final class ControllerTest extends TestCase
 {
@@ -246,7 +245,8 @@ final class ControllerTest extends TestCase
     {
         ComponentRegistry::clear();
         ComponentRegistry::addNamespace('Tests\Mock\Components');
-        View::addPath('tests/templates');
+        Template::clear();
+        Template::addPath('tests/templates');
     }
 
 }

@@ -1,6 +1,6 @@
 # FyreController
 
-**FyreController** is a free, controller library for *PHP*.
+**FyreController** is a free, open-source controller library for *PHP*.
 
 
 ## Table Of Contents
@@ -211,6 +211,24 @@ Find a component class.
 $className = ComponentRegistry::find($name);
 ```
 
+**Get Namespaces**
+
+Get the namespaces.
+
+```php
+$namespaces = ComponentRegistry::getNamespaces();
+```
+
+**Has Namespace**
+
+Check if a namespace exists.
+
+- `$namespace` is a string representing the namespace.
+
+```php
+$hasNamespace = ComponentRegistry::hasNamespace($namespace);
+```
+
 **Load**
 
 Load a component.
@@ -222,6 +240,15 @@ Load a component.
 $component = ComponentRegistry::load($name, $controller);
 ```
 
+**Remove Namespace**
+
+Remove a namespace.
+
+- `$namespace` is a string representing the namespace.
+
+```php
+$removed = ComponentRegistry::removeNamespace($namespace);
+```
 
 ## Components
 

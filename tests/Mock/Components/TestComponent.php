@@ -3,8 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Mock\Components;
 
-use
-    Fyre\Controller\Component;
+use Fyre\Controller\Component;
 
 class TestComponent extends Component
 {

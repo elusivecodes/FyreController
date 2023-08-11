@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace Fyre\Controller;
 
-use
-    Fyre\Controller\Exceptions\ControllerException;
+use Fyre\Controller\Exceptions\ControllerException;
 
-use function
-    class_exists,
-    in_array,
-    is_subclass_of,
-    trim;
+use function array_splice;
+use function class_exists;
+use function in_array;
+use function is_subclass_of;
+use function trim;
 
 abstract class ComponentRegistry
 {
@@ -52,6 +51,27 @@ abstract class ComponentRegistry
     }
 
     /**
+     * Get the namespaces.
+     * @return array The namespaces.
+     */
+    public static function getNamespaces(): array
+    {
+        return static::$namespaces;
+    }
+
+    /**
+     * Determine if a namespace exists.
+     * @param string $namespace The namespace.
+     * @return bool TRUE if the namespace exists, otherwise FALSE.
+     */
+    public static function hasNamespace(string $namespace): bool
+    {
+        $namespace = static::normalizeNamespace($namespace);
+
+        return in_array($namespace, static::$namespaces);
+    }
+
+    /**
      * Load a component.
      * @param string $name The component name.
      * @param Controller $controller The Controller.
@@ -68,6 +88,28 @@ abstract class ComponentRegistry
         }
 
         return new $className($controller, $options);
+    }
+
+    /**
+     * Remove a namespace.
+     * @param string $namespace The namespace.
+     * @return bool TRUE If the namespace was removed, otherwise FALSE.
+     */
+    public static function removeNamespace(string $namespace): bool
+    {
+        $namespace = static::normalizeNamespace($namespace);
+
+        foreach (static::$namespaces AS $i => $otherNamespace) {
+            if ($otherNamespace !== $namespace) {
+                continue;
+            }
+
+            array_splice(static::$namespaces, $i, 1);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**

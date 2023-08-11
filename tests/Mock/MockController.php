@@ -3,9 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Mock;
 
-use
-    Fyre\Controller\Controller,
-    Fyre\Server\ClientResponse;
+use Fyre\Controller\Controller;
+use Fyre\Server\RedirectResponse;
 
 class MockController extends Controller
 {
@@ -22,7 +21,7 @@ class MockController extends Controller
 
     public function redirect()
     {
-        return (new ClientResponse())->redirect('https://test.com/');
+        return new RedirectResponse('https://test.com/');
     }
 
     protected function protected()

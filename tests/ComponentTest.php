@@ -3,15 +3,14 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use
-    Fyre\Controller\Component,
-    Fyre\Controller\ComponentRegistry,
-    Fyre\Controller\Controller,
-    Fyre\Controller\Exceptions\ControllerException,
-    Fyre\Server\ClientResponse,
-    Fyre\Server\ServerRequest,
-    PHPUnit\Framework\TestCase,
-    Tests\Mock\MockController;
+use Fyre\Controller\Component;
+use Fyre\Controller\ComponentRegistry;
+use Fyre\Controller\Controller;
+use Fyre\Controller\Exceptions\ControllerException;
+use Fyre\Server\ClientResponse;
+use Fyre\Server\ServerRequest;
+use PHPUnit\Framework\TestCase;
+use Tests\Mock\MockController;
 
 final class ComponentTest extends TestCase
 {
