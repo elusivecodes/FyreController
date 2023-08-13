@@ -14,6 +14,7 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
 
+use function array_key_exists;
 use function preg_replace;
 use function str_replace;
 use function substr;
@@ -36,6 +37,8 @@ abstract class Controller
 
     protected bool $autoRender = true;
 
+    protected array $components = [];
+
     /**
      * New Controller constructor.
      * @param ServerRequest $request The ServerRequest.
@@ -52,6 +55,20 @@ abstract class Controller
         $title = static::humanize($this->name);
 
         $this->set('title', $title);
+    }
+
+    /**
+     * Load a component.
+     * @param string $name The component name.
+     * @throws ControllerException if the component is not loaded.
+     */
+    public function __get(string $name)
+    {
+        if (!array_key_exists($name, $this->components)) {
+            throw ControllerException::forUnloadedComponent($name);
+        }
+
+        return $this->components[$name];
     }
 
     /**
@@ -173,7 +190,7 @@ abstract class Controller
      */
     public function loadComponent(string $name, array $options = []): static
     {
-        $this->$name = ComponentRegistry::load($name, $this, $options);
+        $this->components[$name] ??= ComponentRegistry::load($name, $this, $options);
 
         return $this;
     }

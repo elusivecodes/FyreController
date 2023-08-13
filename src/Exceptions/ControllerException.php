@@ -21,4 +21,9 @@ class ControllerException extends RuntimeException
         return new static('Invalid method invocation: '.$action);
     }
 
+    public static function forUnloadedComponent(string $name): static
+    {
+        return new static('Component not loaded: '.$name);
+    }
+
 }
