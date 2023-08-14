@@ -8,7 +8,7 @@ use Fyre\Controller\Controller;
 class TestTitle2Controller extends Controller
 {
 
-    public function test()
+    public function test(): void
     {
 
     }

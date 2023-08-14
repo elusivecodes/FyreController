@@ -9,27 +9,27 @@ use Fyre\Server\RedirectResponse;
 class MockController extends Controller
 {
 
-    public function test()
+    public function test(): void
     {
 
     }
 
-    public function arg(string $arg)
+    public function arg(string $arg): void
     {
 
     }
 
-    public function redirect()
+    public function redirect(): RedirectResponse
     {
         return new RedirectResponse('https://test.com/');
     }
 
-    protected function protected()
+    protected function protected(): void
     {
 
     }
 
-    private function private()
+    private function private(): void
     {
 
     }

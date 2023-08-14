@@ -60,9 +60,10 @@ abstract class Controller
     /**
      * Load a component.
      * @param string $name The component name.
+     * @return Component The component.
      * @throws ControllerException if the component is not loaded.
      */
-    public function __get(string $name)
+    public function __get(string $name): Component
     {
         if (!array_key_exists($name, $this->components)) {
             throw ControllerException::forUnloadedComponent($name);
