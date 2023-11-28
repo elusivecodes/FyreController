@@ -50,6 +50,7 @@ final class ControllerTest extends TestCase
         $response = new ClientResponse();
         $controller = new TestTitle2Controller($request, $response);
 
+        $controller->getView()->setLayout(null);
         $controller->invokeAction('test');
 
         $this->assertSame(
@@ -144,6 +145,7 @@ final class ControllerTest extends TestCase
         );
 
         $this->controller->enableAutoRender();
+        $this->controller->getView()->setLayout(null);
         $this->controller->invokeAction('test');
 
         $this->assertSame(
@@ -154,6 +156,8 @@ final class ControllerTest extends TestCase
 
     public function testRender(): void
     {
+        $this->controller->getView()->setLayout(null);
+
         $this->assertSame(
             $this->controller,
             $this->controller->render('Mock/test')
@@ -167,6 +171,8 @@ final class ControllerTest extends TestCase
 
     public function testRenderAppends(): void
     {
+        $this->controller->getView()->setLayout(null);
+
         $this->controller->render('Mock/test');
         $this->controller->render('Mock/test');
 
@@ -179,6 +185,7 @@ final class ControllerTest extends TestCase
     public function testInvoke(): void
     {
         $this->controller->enableAutoRender();
+        $this->controller->getView()->setLayout(null);
 
         $this->assertSame(
             $this->controller,
