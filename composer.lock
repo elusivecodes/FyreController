@@ -1251,16 +1251,16 @@
         },
         {
             "name": "fyre/view",
-            "version": "v5.0.4",
+            "version": "v5.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elusivecodes/FyreView.git",
-                "reference": "a4db923e22db07160a88e5cbf278c7a39f607c06"
+                "reference": "c4a34cf0f5a2c246f8ed5792056f13e549c9beab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elusivecodes/FyreView/zipball/a4db923e22db07160a88e5cbf278c7a39f607c06",
-                "reference": "a4db923e22db07160a88e5cbf278c7a39f607c06",
+                "url": "https://api.github.com/repos/elusivecodes/FyreView/zipball/c4a34cf0f5a2c246f8ed5792056f13e549c9beab",
+                "reference": "c4a34cf0f5a2c246f8ed5792056f13e549c9beab",
                 "shasum": ""
             },
             "require": {
@@ -1296,9 +1296,9 @@
             "description": "A template rendering library.",
             "support": {
                 "issues": "https://github.com/elusivecodes/FyreView/issues",
-                "source": "https://github.com/elusivecodes/FyreView/tree/v5.0.4"
+                "source": "https://github.com/elusivecodes/FyreView/tree/v5.0.5"
             },
-            "time": "2023-11-28T14:36:04+00:00"
+            "time": "2023-11-28T14:44:35+00:00"
         }
     ],
     "packages-dev": [
