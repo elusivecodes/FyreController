@@ -93,7 +93,7 @@ abstract class Controller
     {
         $alias ??= $this->getName();
 
-        return ModelRegistry::use($alias );
+        return ModelRegistry::use($alias);
     }
 
     /**
