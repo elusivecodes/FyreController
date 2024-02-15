@@ -9,6 +9,7 @@ use Fyre\ORM\ModelRegistry;
 use Fyre\Server\ClientResponse;
 use Fyre\Server\ServerRequest;
 use Fyre\Utility\Path;
+use Fyre\View\Template;
 use Fyre\View\View;
 use ReflectionClass;
 use ReflectionException;
@@ -176,8 +177,14 @@ abstract class Controller
         if ($response && $response instanceof ClientResponse) {
             $this->response = $response;
         } else if ($this->autoRender && !$this->response->getBody()) {
-            $this->template ??= Path::join($this->getName(), $action);
-            $this->render($this->template);
+            $template = $this->template;
+
+            if ($template === null) {
+                $file = Template::normalize($action);
+                $template = Path::join($this->getName(), $file);
+            }
+
+            $this->render($template);
         }
 
         return $this;
